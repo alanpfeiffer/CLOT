@@ -1,0 +1,24 @@
+﻿<Page x:Class="ConstructedLanguageOrganizerTool.BasicsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" Title="BasicsPage" Height="349" Width="334"
+      Loaded="Page_Loaded">
+
+    <Grid>
+    
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="12,12,0,0"  Name="conlangName" Text="Conlang Name:" VerticalAlignment="Top" Width="141" />
+        <TextBox x:FieldModifier="public" Height="23" HorizontalAlignment="Left" Margin="159,12,0,0" Name="conlangNameValue" VerticalAlignment="Top" Width="169" />
+
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="12,41,0,0" Name="IPAName" Text="IPA for Conlang:" VerticalAlignment="Top" Width="141" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="159,41,0,0" Name="IPAValues" VerticalAlignment="Top" Width="169" />
+
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="12,70,0,0" Name="conlangLetters" Text="Conlang Letters:" VerticalAlignment="Top" Width="141" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="159,70,0,0" Name="conlangLettersValue" VerticalAlignment="Top" Width="169" />
+
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="12,99,0,0" Name="basicWordForm" Text="Basic Word Form:" VerticalAlignment="Top" Width="141" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="159,99,0,0" Name="basicWordFormValue" VerticalAlignment="Top" Width="169" />
+        
+    </Grid>
+</Page>
