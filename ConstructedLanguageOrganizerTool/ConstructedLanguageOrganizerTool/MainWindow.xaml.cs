@@ -42,12 +42,11 @@ namespace ConstructedLanguageOrganizerTool
 
         private void saveButton_Click(object sender, RoutedEventArgs e)
         {
-            BasicsPage bp = new BasicsPage();
-            string ba = bp.Content.ToString();
-            string ah = bp.conlangNameValue.Text;
+            WordsPage wp = new WordsPage();
+            //string wpl = 
             
 
-            MessageBox.Show("You have saved to " );
+            //MessageBox.Show("You have saved to " + wpl);
         }
 
         private void loadButton_Click(object sender, RoutedEventArgs e)

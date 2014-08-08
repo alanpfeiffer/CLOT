@@ -15,3 +15,20 @@ C:\Users\Alan Pfeiffer\Documents\Visual Studio 2010\Projects\ConstructedLanguage
 C:\Users\Alan Pfeiffer\Documents\Visual Studio 2010\Projects\ConstructedLanguageOrganizerTool\ConstructedLanguageOrganizerTool\obj\x86\Debug\BasicsPage.g.cs
 C:\Users\Alan Pfeiffer\Documents\Visual Studio 2010\Projects\ConstructedLanguageOrganizerTool\ConstructedLanguageOrganizerTool\obj\x86\Debug\WordsPage.baml
 C:\Users\Alan Pfeiffer\Documents\Visual Studio 2010\Projects\ConstructedLanguageOrganizerTool\ConstructedLanguageOrganizerTool\obj\x86\Debug\WordsPage.g.cs
+C:\Users\Alan Pfeiffer\Documents\GIT\CLOT\ConstructedLanguageOrganizerTool\ConstructedLanguageOrganizerTool\obj\x86\Debug\ConstructedLanguageOrganizerTool.exe
+C:\Users\Alan Pfeiffer\Documents\GIT\CLOT\ConstructedLanguageOrganizerTool\ConstructedLanguageOrganizerTool\obj\x86\Debug\ConstructedLanguageOrganizerTool.pdb
+C:\Users\Alan Pfeiffer\Documents\GIT\CLOT\ConstructedLanguageOrganizerTool\ConstructedLanguageOrganizerTool\bin\Debug\ConstructedLanguageOrganizerTool.exe
+C:\Users\Alan Pfeiffer\Documents\GIT\CLOT\ConstructedLanguageOrganizerTool\ConstructedLanguageOrganizerTool\bin\Debug\ConstructedLanguageOrganizerTool.pdb
+C:\Users\Alan Pfeiffer\Documents\GIT\CLOT\ConstructedLanguageOrganizerTool\ConstructedLanguageOrganizerTool\obj\x86\Debug\BasicsPage.baml
+C:\Users\Alan Pfeiffer\Documents\GIT\CLOT\ConstructedLanguageOrganizerTool\ConstructedLanguageOrganizerTool\obj\x86\Debug\GrammarPage.baml
+C:\Users\Alan Pfeiffer\Documents\GIT\CLOT\ConstructedLanguageOrganizerTool\ConstructedLanguageOrganizerTool\obj\x86\Debug\MainWindow.baml
+C:\Users\Alan Pfeiffer\Documents\GIT\CLOT\ConstructedLanguageOrganizerTool\ConstructedLanguageOrganizerTool\obj\x86\Debug\WordsPage.baml
+C:\Users\Alan Pfeiffer\Documents\GIT\CLOT\ConstructedLanguageOrganizerTool\ConstructedLanguageOrganizerTool\obj\x86\Debug\BasicsPage.g.cs
+C:\Users\Alan Pfeiffer\Documents\GIT\CLOT\ConstructedLanguageOrganizerTool\ConstructedLanguageOrganizerTool\obj\x86\Debug\GrammarPage.g.cs
+C:\Users\Alan Pfeiffer\Documents\GIT\CLOT\ConstructedLanguageOrganizerTool\ConstructedLanguageOrganizerTool\obj\x86\Debug\MainWindow.g.cs
+C:\Users\Alan Pfeiffer\Documents\GIT\CLOT\ConstructedLanguageOrganizerTool\ConstructedLanguageOrganizerTool\obj\x86\Debug\WordsPage.g.cs
+C:\Users\Alan Pfeiffer\Documents\GIT\CLOT\ConstructedLanguageOrganizerTool\ConstructedLanguageOrganizerTool\obj\x86\Debug\App.g.cs
+C:\Users\Alan Pfeiffer\Documents\GIT\CLOT\ConstructedLanguageOrganizerTool\ConstructedLanguageOrganizerTool\obj\x86\Debug\ConstructedLanguageOrganizerTool_MarkupCompile.cache
+C:\Users\Alan Pfeiffer\Documents\GIT\CLOT\ConstructedLanguageOrganizerTool\ConstructedLanguageOrganizerTool\obj\x86\Debug\ConstructedLanguageOrganizerTool.g.resources
+C:\Users\Alan Pfeiffer\Documents\GIT\CLOT\ConstructedLanguageOrganizerTool\ConstructedLanguageOrganizerTool\obj\x86\Debug\ConstructedLanguageOrganizerTool.Properties.Resources.resources
+C:\Users\Alan Pfeiffer\Documents\GIT\CLOT\ConstructedLanguageOrganizerTool\ConstructedLanguageOrganizerTool\obj\x86\Debug\ConstructedLanguageOrganizerTool.csproj.GenerateResource.Cache
