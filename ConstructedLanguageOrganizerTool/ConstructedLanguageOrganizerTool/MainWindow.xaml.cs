@@ -20,41 +20,39 @@ namespace ConstructedLanguageOrganizerTool
     /// </summary>
     public partial class MainWindow : Window
     {
+       
+
         public MainWindow()
         {
             InitializeComponent();
+             string fullpath = System.IO.Directory.GetCurrentDirectory();
+        fullpath = fullpath.Replace(@"\ConstructedLanguageOrganizerTool\bin\Debug", "");
+       // var dbFile = fullpath + fileBox.Text + ".db";
+            //var connString = string.Format(@"Data Source={0}; Pooling=false; FailIfMissing=false;", dbFile);
         }
 
-        private void grammerPageButton_Click(object sender, RoutedEventArgs e)
-        {
-            contentFrame.Source = new Uri("GrammarPage.xaml", UriKind.Relative);
-        }
 
-        private void wordsPageButton_Click(object sender, RoutedEventArgs e)
-        {
-            contentFrame.Source = new Uri("WordsPage.xaml", UriKind.Relative);
-        }
 
-        private void basicsPageButton_Click(object sender, RoutedEventArgs e)
-        {
-            contentFrame.Source = new Uri("BasicsPage.xaml", UriKind.Relative);
-        }
 
-        private void saveButton_Click(object sender, RoutedEventArgs e)
-        {
-            BasicsPage bp = new BasicsPage();
-            string bpl = bp.conlangLettersValue.Text; 
+
+
+        //private void saveButton_Click(object sender, RoutedEventArgs e)
+        //{
             
+        //    if (contentFrame.Content.GetType() == typeof(BasicsPage))
+        //    {
+        //        var basicsPage = contentFrame.Content as BasicsPage;
+        //        var bpl = basicsPage.conlangLettersValue.Text;
+        //        MessageBox.Show("You have saved to " + bpl);
+        //    }
+        //}
 
-            MessageBox.Show("You have saved to " + bpl);
-        }
+        //private void loadButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //   // MessageBox.Show("You have loaded " + fileBox.Text + ".db");
+        //}
 
-        private void loadButton_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("You have loaded " + fileBox.Text + ".txt");
-            BasicsPage bp = new BasicsPage();
-            
-        }
+   
 
 
     }

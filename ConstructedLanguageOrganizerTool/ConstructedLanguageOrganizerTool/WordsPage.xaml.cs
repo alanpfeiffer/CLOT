@@ -17,7 +17,7 @@ namespace ConstructedLanguageOrganizerTool
     /// <summary>
     /// Interaction logic for WordsPage.xaml
     /// </summary>
-    public partial class WordsPage : Page
+    public partial class WordsPage : UserControl
     {
         public WordsPage()
         {

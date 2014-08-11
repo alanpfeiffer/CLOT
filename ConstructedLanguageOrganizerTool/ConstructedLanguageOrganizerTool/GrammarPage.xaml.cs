@@ -17,7 +17,7 @@ namespace ConstructedLanguageOrganizerTool
     /// <summary>
     /// Interaction logic for GrammarPage.xaml
     /// </summary>
-    public partial class GrammarPage : Page
+    public partial class GrammarPage : UserControl
     {
         public GrammarPage()
         {
