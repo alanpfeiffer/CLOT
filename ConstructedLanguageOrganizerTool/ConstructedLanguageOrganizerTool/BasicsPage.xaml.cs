@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace ConstructedLanguageOrganizerTool
 {
@@ -26,6 +27,18 @@ namespace ConstructedLanguageOrganizerTool
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            DatabaseParser dp = new DatabaseParser();
+            string fileDir = dp.GetFileLocation();
+            conlangsListBox.Items.Clear();
+
+            foreach (string file in Directory.EnumerateFiles(fileDir, "*.db"))
+            {
+                string filedb = file.Replace(fileDir, "");
+                filedb = filedb.Replace(".db", "");
+                conlangsListBox.Items.Add(filedb);
+            }
+
+
         }
 
         private void IPAValues_TextChanged(object sender, TextChangedEventArgs e)
@@ -54,28 +67,34 @@ namespace ConstructedLanguageOrganizerTool
 
 
         }
-        string conlange;
-        string IPASounds;
-        string conletters;
-        string basicwordform;
-
-        public BasicsPage()
-        {
-            conlange = "";
-            IPASounds = "";
-            conletters = "";
-            basicwordform = "";
-        }
+   
 
         private void conlangAddButton_Click(object sender, RoutedEventArgs e)
         {
             DatabaseParser dbp = new DatabaseParser();
-
-            
-            if (dbp.CreateDB(conlangNameValue.Text) == true)
-                MessageBox.Show("db already exists");
+            dbp.CreateDB(conlangNameValue.Text); //Create, if doesn't exist, and Open db.
+            int val;
+            if (int.TryParse(gendersValue.Text, out val))
+                dbp.AddOrUpdateDB(conlangNameValue.Text, IPAValues.Text, conlangLettersValue.Text, basicWordFormValue.Text, gendersValue.Text);
             else
-                MessageBox.Show("Db doesn't exist. Created " + conlangNameValue.Text);
+                MessageBox.Show("Error: Number of genders needs to be a number!");
+
+        }
+
+        private void conlangsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (conlangsListBox.SelectedItem != null)
+            {
+                DatabaseParser dbp = new DatabaseParser();
+                string[] dbEntry = dbp.ReadDB("Basics", conlangsListBox.SelectedItem.ToString());
+
+                conlangNameValue.Text = dbEntry[0];
+                IPAValues.Text = dbEntry[1];
+                conlangLettersValue.Text = dbEntry[2];
+                basicWordFormValue.Text = dbEntry[3];
+                gendersValue.Text = dbEntry[4];
+            }
+
 
 
         }
