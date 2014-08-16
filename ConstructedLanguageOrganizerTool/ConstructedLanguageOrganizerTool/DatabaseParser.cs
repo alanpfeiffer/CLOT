@@ -9,7 +9,12 @@ namespace ConstructedLanguageOrganizerTool
 {
     class DatabaseParser
     {
-        string conlanguageName;
+        static string conlanguageName;
+
+        public void SetConlang(string conlang)
+        {
+            conlanguageName = conlang;
+        }
 
         public string GetFileLocation()
         {
@@ -19,10 +24,9 @@ namespace ConstructedLanguageOrganizerTool
             return fullpath;
         }
 
-        public string DBstring(string conlangName)
+        public string DBstring()
         {
             var dbFile = GetFileLocation();
-            conlanguageName = conlangName;
             dbFile = dbFile + conlanguageName + ".db";
 
             var connString = string.Format(@"Data Source={0}; Pooling=false; FailIfMissing=false;", dbFile);
@@ -30,16 +34,14 @@ namespace ConstructedLanguageOrganizerTool
             return connString;
         }
 
-
         public void CreateDB(string conlangName)
         {
-            var connString = DBstring(conlangName);
-            
-            SQLiteConnection dbConn = new SQLiteConnection(connString);
+            var connString = DBstring();
 
+            SQLiteConnection dbConn = new SQLiteConnection(connString);
             dbConn.Open();
             SQLiteCommand cmd = dbConn.CreateCommand();
-
+            
             cmd.CommandText = @"CREATE TABLE IF NOT EXISTS Basics (conlang string primary key, ipa string, letters string, basicForm string, genders string);";
             cmd.ExecuteNonQuery();
             cmd.CommandText = @"CREATE TABLE IF NOT EXISTS Lexicon (conword string primary key, localWord string, pronunciation string, pos string, gender string, declension string);";
@@ -53,10 +55,20 @@ namespace ConstructedLanguageOrganizerTool
 
         }
 
+        public void DeleteDB(string database)
+        {
+            string dbToDelete = GetFileLocation();
+            dbToDelete += conlanguageName + ".db";
+            SQLiteConnection.ClearAllPools();
+            GC.Collect();
+            File.Delete(dbToDelete);
+        }
+
+
         // Basics DB Add
         public void AddOrUpdateDB(string conlangName, string ipaValue, string conletters, string basicWordForm, string genders)
         {
-            var connString = DBstring(conlangName);
+            var connString = DBstring();
 
             SQLiteConnection dbConn = new SQLiteConnection(connString);
             dbConn.Open();
@@ -101,16 +113,16 @@ namespace ConstructedLanguageOrganizerTool
         }
 
         // Word DB Add
-        public void AddOrUpdateDB(string conWord, string localWord, string pronunciation, string pos, int gender, string declension)
+        public void AddOrUpdateDB(string conWord, string localWord, string pronunciation, string pos, string gender, string declension)
         {
-            var connString = DBstring(conlanguageName);
-            
+            var connString = DBstring();
+
             SQLiteConnection dbConn = new SQLiteConnection(connString);
             dbConn.Open();
             SQLiteCommand cmd = dbConn.CreateCommand();
 
 
-            cmd.CommandText = @"INSERT INTO Lexicon (conlang, ipa, letters, basicForm, genders) VALUES(@conword, @localWord, @pronunciation, @pos, @gender, @declension)";
+            cmd.CommandText = @"INSERT INTO Lexicon (conword, localWord, pronunciation, pos, gender,declension) VALUES(@conword, @localWord, @pronunciation, @pos, @gender, @declension)";
 
             cmd.Parameters.Add(new System.Data.SQLite.SQLiteParameter
             {
@@ -155,7 +167,7 @@ namespace ConstructedLanguageOrganizerTool
         // Grammar DB Add
         public void AddOrUpdateDB(string grammarName, string grammarType, string grammarPoint)
         {
-            var connString = DBstring(conlanguageName);
+            var connString = DBstring();
 
             SQLiteConnection dbConn = new SQLiteConnection(connString);
             dbConn.Open();
@@ -188,54 +200,60 @@ namespace ConstructedLanguageOrganizerTool
 
         }
 
-        public string[] ReadDB(string page, string conlanguageName)
+        // Remove an DB entry
+        public void DeleteRow(string page, string colName, string entryToDelete)
         {
-            var connString = DBstring(conlanguageName);
+            var connString = DBstring();
 
             SQLiteConnection dbConn = new SQLiteConnection(connString);
             dbConn.Open();
             SQLiteCommand cmd = dbConn.CreateCommand();
 
-            cmd.CommandText = @"select * from Basics";
+
+            cmd.CommandText = @"delete from " + page + " where " + colName + " = \"" + entryToDelete + "\"";
+            cmd.ExecuteNonQuery();
+
+        }
+
+
+        public string[] ReadDB(string page, string columnToRead, string opColumnForRow, string rowToRead)
+        {
+            var connString = DBstring();
+            int rowCount = 0;
+
+            SQLiteConnection dbConn = new SQLiteConnection(connString);
+            dbConn.Open();
+            SQLiteCommand cmd = dbConn.CreateCommand();
+
+            if (opColumnForRow == "")
+            {
+                cmd.CommandText = @"select count(*) from " + page;
+                rowCount = Convert.ToInt32(cmd.ExecuteScalar());
+
+                cmd.CommandText = @"select " + columnToRead + " from " + page; //Read for Basics or other pages listboxes. columnToRead value is either '*' or Col name.
+            }
+            else
+                cmd.CommandText = @"select " + columnToRead + " from " + page + "where" + opColumnForRow + " = \"" + rowToRead + "\"";  //Read for Lexicon
+
 
             System.Data.SQLite.SQLiteDataReader reader = cmd.ExecuteReader();
 
-            string[] dbValues = new string[reader.FieldCount];
+            string[] dbValues;
+            int test;
+
+            if (columnToRead == "*")
+                dbValues = new string[reader.FieldCount];
+            else
+                dbValues = new string[rowCount];
+
             while (reader.Read())
-                reader.GetValues(dbValues);
+                test = reader.GetValues(dbValues);
+
 
             dbConn.Close();
 
             return dbValues;
 
         }
-
-
-        public static void Test2(string connString)
-        {
-
-            
-
-            using (var dbConn = new System.Data.SQLite.SQLiteConnection(connString))
-            {
-                dbConn.Open();
-                using (System.Data.SQLite.SQLiteCommand cmd = dbConn.CreateCommand())
-                {
-                   
-                    //read from the table
-                    cmd.CommandText = @"SELECT ID, T FROM T1";
-                    using (System.Data.SQLite.SQLiteDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            long id = reader.GetInt64(0);
-                            string t = reader.GetString(1);
-                        }
-                    }
-                }
-                if (dbConn.State != System.Data.ConnectionState.Closed) dbConn.Close();
-            }
-        }
-
     }
 }

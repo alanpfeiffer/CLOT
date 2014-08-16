@@ -27,8 +27,8 @@ namespace ConstructedLanguageOrganizerTool
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            DatabaseParser dp = new DatabaseParser();
-            string fileDir = dp.GetFileLocation();
+            DatabaseParser dbp = new DatabaseParser();
+            string fileDir = dbp.GetFileLocation();
             conlangsListBox.Items.Clear();
 
             foreach (string file in Directory.EnumerateFiles(fileDir, "*.db"))
@@ -36,6 +36,7 @@ namespace ConstructedLanguageOrganizerTool
                 string filedb = file.Replace(fileDir, "");
                 filedb = filedb.Replace(".db", "");
                 conlangsListBox.Items.Add(filedb);
+                dbp.SetConlang(filedb);
             }
 
 
@@ -86,16 +87,27 @@ namespace ConstructedLanguageOrganizerTool
             if (conlangsListBox.SelectedItem != null)
             {
                 DatabaseParser dbp = new DatabaseParser();
-                string[] dbEntry = dbp.ReadDB("Basics", conlangsListBox.SelectedItem.ToString());
+                dbp.SetConlang(conlangsListBox.SelectedItem.ToString());
+                string[] dbEntry = dbp.ReadDB("Basics","*","","");
 
                 conlangNameValue.Text = dbEntry[0];
                 IPAValues.Text = dbEntry[1];
                 conlangLettersValue.Text = dbEntry[2];
                 basicWordFormValue.Text = dbEntry[3];
                 gendersValue.Text = dbEntry[4];
+
+                
             }
 
 
+
+        }
+
+        private void conlangDeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            DatabaseParser dbp = new DatabaseParser();
+            dbp.DeleteDB(conlangNameValue.Text);
+            MessageBox.Show("Deleted: " + conlangNameValue.Text);
 
         }
     }

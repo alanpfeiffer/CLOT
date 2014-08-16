@@ -44,7 +44,7 @@
             <TextBox   Grid.Row="4" Grid.Column="1" Height="25" HorizontalAlignment="Stretch" Margin="0,5,5,0" Name="gendersValue" VerticalAlignment="Center" Foreground="#FFAF0000" />
 
             <Button Grid.Row="5" Grid.Column="0" Height="25" Width="60" Content="Add" Name="conlangAddButton" Click="conlangAddButton_Click" />
-            
+            <Button Grid.Row="5" Grid.Column="1" Height="25" Width="60" Content="Delete" Name="conlangDeleteButton" Click="conlangDeleteButton_Click" />
             
         </Grid>
     </Grid>

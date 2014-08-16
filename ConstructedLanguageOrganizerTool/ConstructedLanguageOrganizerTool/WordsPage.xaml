@@ -3,7 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      mc:Ignorable="d" x:Name="wordsPage" d:DesignHeight="481" d:DesignWidth="489">
+      mc:Ignorable="d" x:Name="wordsPage" d:DesignHeight="481" d:DesignWidth="489"
+      Loaded="wordsPage_Loaded">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -11,9 +12,10 @@
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
         
-        <ListBox Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5,5,0,5"    Name="wordListBox"  ItemsSource="{Binding}"/>
+        <ListBox Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5,5,0,5"    Name="wordListBox"  ItemsSource="{Binding}" SelectionChanged="wordListBox_SelectionChanged" />
         <Grid    Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5, 5, 5, 5" Name="wordDetailsGrid">
             <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
                 <RowDefinition Height="40" />
                 <RowDefinition Height="40" />
                 <RowDefinition Height="40" />
@@ -32,17 +34,22 @@
             <Label     Grid.Column="0" Grid.Row="1" Height="30" HorizontalAlignment="Right" Margin="5,5,0,0" Name="localWordLabel" Content="Local Word:" VerticalAlignment="Top" />
             <TextBox   Grid.Column="1" Grid.Row="1" Height="30" HorizontalAlignment="Left" Margin="0,5,0,0" Name="localWordBox" VerticalAlignment="Top" Width="120" />
 
-            <Label     Grid.Column="0" Grid.Row="2" Height="30" HorizontalAlignment="Right" Margin="5,5,0,0" Name="pronunciationLabel" Content="Pronunciation" VerticalAlignment="Top" />
+            <Label     Grid.Column="0" Grid.Row="2" Height="30" HorizontalAlignment="Right" Margin="5,5,0,0" Name="pronunciationLabel" Content="Pronunciation:" VerticalAlignment="Top" />
             <TextBox   Grid.Column="1" Grid.Row="2" Height="30" HorizontalAlignment="Left" Margin="0,5,0,0" Name="pronunciationBox" VerticalAlignment="Top" Width="120" />
 
-            <Label     Grid.Column="0" Grid.Row="3" Height="30" HorizontalAlignment="Right" Margin="5,5,0,0" Name="partOfSpeechLabel" Content="Part of Speech" VerticalAlignment="Top" />
+            <Label     Grid.Column="0" Grid.Row="3" Height="30" HorizontalAlignment="Right" Margin="5,5,0,0" Name="partOfSpeechLabel" Content="Part of Speech:" VerticalAlignment="Top" />
             <TextBox   Grid.Column="1" Grid.Row="3" Height="30" HorizontalAlignment="Left" Margin="0,5,0,0" Name="partOfSpeechBox" VerticalAlignment="Top" Width="120" />
 
             <Label     Grid.Column="0" Grid.Row="4" Height="30" HorizontalAlignment="Right" Margin="5,5,0,0" Name="genderLabel" Content="Gender:" VerticalAlignment="Top" />
             <TextBox   Grid.Column="1" Grid.Row="4" Height="30" HorizontalAlignment="Left" Margin="0,5,0,0" Name="genderBox" VerticalAlignment="Top" Width="120" />
 
-            <Label     Grid.Column="0" Grid.Row="5" Height="30" HorizontalAlignment="Right" Margin="5,5,0,0" Name="declensionLabel" Content="Declension" VerticalAlignment="Top" />
+            <Label     Grid.Column="0" Grid.Row="5" Height="30" HorizontalAlignment="Right" Margin="5,5,0,0" Name="declensionLabel" Content="Declension:" VerticalAlignment="Top" />
             <TextBox   Grid.Column="1" Grid.Row="5" Height="30" HorizontalAlignment="Left" Margin="0,5,0,0" Name="declensionBox" VerticalAlignment="Top" Width="120" />
+
+            <Button    Grid.Column="0" Grid.Row="6" Height="25" Width="60" Content="Add" Name="conwordAddButton" Click="conwordAddButton_Click" />
+            <Button    Grid.Column="1" Grid.Row="6" Height="25" Width="60" Content="Delete" Name="conwordDeleteButton" Click="conwordDeleteButton_Click" />
+
+
         </Grid> 
     </Grid>
 </UserControl>
