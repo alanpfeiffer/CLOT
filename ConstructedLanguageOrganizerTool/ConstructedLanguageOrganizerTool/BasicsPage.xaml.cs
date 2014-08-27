@@ -36,49 +36,37 @@ namespace ConstructedLanguageOrganizerTool
                 string filedb = file.Replace(fileDir, "");
                 filedb = filedb.Replace(".db", "");
                 conlangsListBox.Items.Add(filedb);
-                dbp.SetConlang(filedb);
             }
-
+            conlangsListBox.SelectedItem = "Example";
 
         }
-
-        private void IPAValues_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-
-
-            if (IPAValues.Text == "")
-            {
-                conlangLettersValue.Visibility = Visibility.Hidden;
-                conlangLetters.Visibility = Visibility.Hidden;
-
-                basicWordForm.SetValue(Grid.RowProperty, 2);
-                basicWordFormValue.SetValue(Grid.RowProperty, 2);
-            }
-            else if (IPAValues.Text != "")
-            {
-                conlangLettersValue.Visibility = Visibility.Visible;
-                conlangLetters.Visibility = Visibility.Visible;
-
-                basicWordForm.SetValue(Grid.RowProperty, 3);
-                basicWordFormValue.SetValue(Grid.RowProperty, 3);
-
-            }
-
-
-
-        }
-   
 
         private void conlangAddButton_Click(object sender, RoutedEventArgs e)
         {
             DatabaseParser dbp = new DatabaseParser();
+            dbp.SetConlang(conlangNameValue.Text);
             dbp.CreateDB(conlangNameValue.Text); //Create, if doesn't exist, and Open db.
-            int val;
-            if (int.TryParse(gendersValue.Text, out val))
-                dbp.AddOrUpdateDB(conlangNameValue.Text, IPAValues.Text, conlangLettersValue.Text, basicWordFormValue.Text, gendersValue.Text);
-            else
-                MessageBox.Show("Error: Number of genders needs to be a number!");
+
+            int i = 0;
+            string[] pageInfo = new string [(conlangBasicsGrid.Children.Count-2)];
+            if (i < conlangBasicsGrid.Children.Count)
+            {
+                foreach (object child in conlangBasicsGrid.Children)
+                {
+                    if (child is Label)
+                        pageInfo[i] = (child as Label).Name;
+                    
+                    if (child is TextBox)
+                        pageInfo[i] = (child as TextBox).Text;
+                    
+                    i++;
+
+                }
+            }
+
+
+            dbp.AddOrUpdateDB(pageInfo, "Basics");
+          
 
         }
 
@@ -88,19 +76,22 @@ namespace ConstructedLanguageOrganizerTool
             {
                 DatabaseParser dbp = new DatabaseParser();
                 dbp.SetConlang(conlangsListBox.SelectedItem.ToString());
-                string[] dbEntry = dbp.ReadDB("Basics","*","","");
+                string[] dbEntry = dbp.ReadDB("Basics", "*", "", "");
 
-                conlangNameValue.Text = dbEntry[0];
-                IPAValues.Text = dbEntry[1];
-                conlangLettersValue.Text = dbEntry[2];
-                basicWordFormValue.Text = dbEntry[3];
-                gendersValue.Text = dbEntry[4];
+                int i = 0;
+                if (i <= conlangBasicsGrid.Children.Count)
+                {
+                    foreach (object child in conlangBasicsGrid.Children)
+                    {
 
-                
+                        if (child is TextBox)
+                        {
+                            (child as TextBox).Text = dbEntry[i];
+                            i++;
+                        }
+                    }
+                }
             }
-
-
-
         }
 
         private void conlangDeleteButton_Click(object sender, RoutedEventArgs e)

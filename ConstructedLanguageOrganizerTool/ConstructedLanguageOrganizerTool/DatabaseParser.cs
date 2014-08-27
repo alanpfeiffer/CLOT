@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Data.SQLite;
+using System.Windows;
+using System.Windows.Controls;
+
 
 namespace ConstructedLanguageOrganizerTool
 {
@@ -42,12 +45,101 @@ namespace ConstructedLanguageOrganizerTool
             dbConn.Open();
             SQLiteCommand cmd = dbConn.CreateCommand();
             
-            cmd.CommandText = @"CREATE TABLE IF NOT EXISTS Basics (conlang string primary key, ipa string, letters string, basicForm string, genders string);";
+            BasicsPage bp = new BasicsPage();
+            WordsPage wp = new WordsPage();
+            GrammarPage gp = new GrammarPage();
+            
+
+            string commandString = @"CREATE TABLE IF NOT EXISTS Basics(" ;
+            int i = 0;
+            string temp;
+
+            foreach (object child in bp.conlangBasicsGrid.Children)
+            {
+                if (child is Label)
+                {
+                    temp = (child as Label).Name;
+                    temp = temp.Replace("Label", "");
+
+                    commandString += temp;
+                    commandString += " string";
+
+                    if (i == 0)
+                        commandString += " primary key, ";
+                    else if (i != ((bp.conlangBasicsGrid.Children.Count - 2) / 2) - 1)
+                        commandString += ", ";
+                    else
+                        commandString += ");";
+
+                    i++;
+                }
+
+            }
+
+            cmd.CommandText = commandString;
             cmd.ExecuteNonQuery();
-            cmd.CommandText = @"CREATE TABLE IF NOT EXISTS Lexicon (conword string primary key, localWord string, pronunciation string, pos string, gender string, declension string);";
+
+             commandString = @"CREATE TABLE IF NOT EXISTS Lexicon(";
+             i = 0;
+
+             foreach (object child in wp.wordDetailsGrid.Children)
+            {
+                if (child is Label)
+                {
+                    temp = (child as Label).Name;
+                    temp = temp.Replace("Label", "");
+
+                    commandString += temp;
+                    commandString += " string";
+
+                    if (i == 0)
+                        commandString += " primary key, ";
+                    else if (i != ((wp.wordDetailsGrid.Children.Count - 2) / 2) - 1)
+                        commandString += ", ";
+                    else
+                        commandString += ");";
+
+                    i++;
+                }
+
+            }
+            cmd.CommandText = commandString;
             cmd.ExecuteNonQuery();
-            cmd.CommandText = @"CREATE TABLE IF NOT EXISTS Grammar (grammarName string primary key, grammarType string, gramarPoint string);";
+
+             commandString = @"CREATE TABLE IF NOT EXISTS Grammar(";
+             i = 0;
+
+            foreach (object child in gp.grammarDetailsGrid.Children)
+            {
+                if (child is Label)
+                {
+                    temp = (child as Label).Name;
+                    temp = temp.Replace("Label", "");
+
+                    commandString += temp;
+                    commandString += " string";
+
+                    if (i == 0)
+                        commandString += " primary key, ";
+                    else if (i != ((gp.grammarDetailsGrid.Children.Count - 2) / 2) - 1)
+                        commandString += ", ";
+                    else
+                        commandString += ");";
+
+                    i++;
+                }
+
+            }
+            cmd.CommandText = commandString;
             cmd.ExecuteNonQuery();
+
+
+            //cmd.CommandText = @"CREATE TABLE IF NOT EXISTS Basics (conlang string primary key, ipa string, letters string, basicForm string, genders string, basicSen string, declensions string);";
+            //cmd.ExecuteNonQuery();
+            //cmd.CommandText = @"CREATE TABLE IF NOT EXISTS Lexicon (conword string primary key, localWord string, pronunciation string, pos string, gender string, declension string);";
+            //cmd.ExecuteNonQuery();
+            //cmd.CommandText = @"CREATE TABLE IF NOT EXISTS Grammar (grammarPoint string primary key, grammarType string, grammarDesc string);";
+            //cmd.ExecuteNonQuery();
 
 
             dbConn.Close();
@@ -65,8 +157,8 @@ namespace ConstructedLanguageOrganizerTool
         }
 
 
-        // Basics DB Add
-        public void AddOrUpdateDB(string conlangName, string ipaValue, string conletters, string basicWordForm, string genders)
+        // DB Add.
+        public void AddOrUpdateDB(string[] pageContents, string page)
         {
             var connString = DBstring();
 
@@ -75,131 +167,51 @@ namespace ConstructedLanguageOrganizerTool
             SQLiteCommand cmd = dbConn.CreateCommand();
 
 
-            cmd.CommandText = @"INSERT INTO Basics (conlang, ipa, letters, basicForm, genders) VALUES(@conlang, @ipa, @letters, @basicForm, @genders)";
-
-            cmd.Parameters.Add(new System.Data.SQLite.SQLiteParameter
+            string commandString = @"INSERT INTO " + page + " (";
+            string temp;
+            string secondHalf = ") VALUES(";
+            for (int i = 0; i < pageContents.Length; i += 2)
             {
-                ParameterName = "@conlang",
-                Value = conlangName
-            });
+                temp = pageContents[i];
+                temp = temp.Replace("Label", "");
+                //temp = temp.ToLower();
+                commandString += temp;
 
-            cmd.Parameters.Add(new System.Data.SQLite.SQLiteParameter
-            {
-                ParameterName = "@ipa",
-                Value = ipaValue
-            });
+                secondHalf += "@" +temp;
 
-            cmd.Parameters.Add(new System.Data.SQLite.SQLiteParameter
-            {
-                ParameterName = "@letters",
-                Value = conletters
-            });
+                if (i != pageContents.Length - 2)
+                {
+                    commandString += ", ";
+                    secondHalf += ", ";
+                }
+                else
+                {
+                    secondHalf += ")";
+                    commandString += secondHalf;
+                }
+            }
 
-            cmd.Parameters.Add(new System.Data.SQLite.SQLiteParameter
-            {
-                ParameterName = "@basicForm",
-                Value = basicWordForm
-            });
+            cmd.CommandText = commandString;
 
-            cmd.Parameters.Add(new System.Data.SQLite.SQLiteParameter
+            for (int i = 0; i < pageContents.Length; i += 2)
             {
-                ParameterName = "@genders",
-                Value = genders
-            });
+                temp = pageContents[i];
+                temp = temp.Replace("Label", "");
+                temp = temp.ToLower();
+                temp = "@" + temp;
+
+                cmd.Parameters.Add(new System.Data.SQLite.SQLiteParameter
+                {
+                    ParameterName = temp,
+                    Value = pageContents[i + 1]
+                });
+            }
             cmd.ExecuteNonQuery();
 
             dbConn.Close();
 
         }
-
-        // Word DB Add
-        public void AddOrUpdateDB(string conWord, string localWord, string pronunciation, string pos, string gender, string declension)
-        {
-            var connString = DBstring();
-
-            SQLiteConnection dbConn = new SQLiteConnection(connString);
-            dbConn.Open();
-            SQLiteCommand cmd = dbConn.CreateCommand();
-
-
-            cmd.CommandText = @"INSERT INTO Lexicon (conword, localWord, pronunciation, pos, gender,declension) VALUES(@conword, @localWord, @pronunciation, @pos, @gender, @declension)";
-
-            cmd.Parameters.Add(new System.Data.SQLite.SQLiteParameter
-            {
-                ParameterName = "@conword",
-                Value = conWord
-            });
-
-            cmd.Parameters.Add(new System.Data.SQLite.SQLiteParameter
-            {
-                ParameterName = "@localWord",
-                Value = localWord
-            });
-
-            cmd.Parameters.Add(new System.Data.SQLite.SQLiteParameter
-            {
-                ParameterName = "@pronunciation",
-                Value = pronunciation
-            });
-
-            cmd.Parameters.Add(new System.Data.SQLite.SQLiteParameter
-            {
-                ParameterName = "@pos",
-                Value = pos
-            });
-
-            cmd.Parameters.Add(new System.Data.SQLite.SQLiteParameter
-            {
-                ParameterName = "@gender",
-                Value = gender
-            });
-
-            cmd.Parameters.Add(new System.Data.SQLite.SQLiteParameter
-            {
-                ParameterName = "@declension",
-                Value = declension
-            });
-            cmd.ExecuteNonQuery();
-
-            dbConn.Close();
-        }
-
-        // Grammar DB Add
-        public void AddOrUpdateDB(string grammarName, string grammarType, string grammarPoint)
-        {
-            var connString = DBstring();
-
-            SQLiteConnection dbConn = new SQLiteConnection(connString);
-            dbConn.Open();
-            SQLiteCommand cmd = dbConn.CreateCommand();
-
-
-            cmd.CommandText = @"INSERT INTO Grammar (grammarName, grammarType, grammarPoint) VALUES(@grammarName, @grammarType, @grammarPoint)";
-
-            cmd.Parameters.Add(new System.Data.SQLite.SQLiteParameter
-            {
-                ParameterName = "@grammarName",
-                Value = grammarName
-            });
-
-            cmd.Parameters.Add(new System.Data.SQLite.SQLiteParameter
-            {
-                ParameterName = "@grammarType",
-                Value = grammarType
-            });
-
-            cmd.Parameters.Add(new System.Data.SQLite.SQLiteParameter
-            {
-                ParameterName = "@grammarPoint",
-                Value = grammarPoint
-            });
-
-            cmd.ExecuteNonQuery();
-
-            dbConn.Close();
-
-        }
-
+       
         // Remove an DB entry
         public void DeleteRow(string page, string colName, string entryToDelete)
         {
@@ -213,6 +225,9 @@ namespace ConstructedLanguageOrganizerTool
             cmd.CommandText = @"delete from " + page + " where " + colName + " = \"" + entryToDelete + "\"";
             cmd.ExecuteNonQuery();
 
+            dbConn.Close();
+
+
         }
 
 
@@ -222,6 +237,7 @@ namespace ConstructedLanguageOrganizerTool
             int rowCount = 0;
 
             SQLiteConnection dbConn = new SQLiteConnection(connString);
+
             dbConn.Open();
             SQLiteCommand cmd = dbConn.CreateCommand();
 
@@ -233,22 +249,30 @@ namespace ConstructedLanguageOrganizerTool
                 cmd.CommandText = @"select " + columnToRead + " from " + page; //Read for Basics or other pages listboxes. columnToRead value is either '*' or Col name.
             }
             else
-                cmd.CommandText = @"select " + columnToRead + " from " + page + "where" + opColumnForRow + " = \"" + rowToRead + "\"";  //Read for Lexicon
+                cmd.CommandText = @"select " + columnToRead + " from " + page + " where " + opColumnForRow + " = \"" + rowToRead + "\"";  //Read for Lexicon
 
 
             System.Data.SQLite.SQLiteDataReader reader = cmd.ExecuteReader();
 
-            string[] dbValues;
-            int test;
+            string[] dbValues = new string[reader.FieldCount];
 
             if (columnToRead == "*")
-                dbValues = new string[reader.FieldCount];
+            {
+                //dbValues = new string[reader.FieldCount];
+                while (reader.Read())
+                    reader.GetValues(dbValues);
+            }
             else
+            {
                 dbValues = new string[rowCount];
+                int i = 0;
+                while (reader.Read())
+                {
+                    dbValues[i] = reader.GetString(0);
+                    i++;
+                }
 
-            while (reader.Read())
-                test = reader.GetValues(dbValues);
-
+            }
 
             dbConn.Close();
 

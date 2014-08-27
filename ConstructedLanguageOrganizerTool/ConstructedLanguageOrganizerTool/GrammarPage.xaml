@@ -3,9 +3,9 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
-	x:Name="grammarPage" Background="#FF004B00">
+      mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300"
+	  x:Name="grammarPage" Background="#FF004B00"
+      Loaded="grammarPage_Loaded"  >
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -13,12 +13,14 @@
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
 
-        <ListBox Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5,5,0,5"    Name="wordListBox"  />
-        <Grid    Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5, 5, 5, 5" Name="wordDetailsGrid">
+        <ListBox Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5,5,0,5"    Name="grammarListBox" SelectionChanged="grammarListBox_SelectionChanged" />
+        <Grid    Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5, 5, 5, 5" Name="grammarDetailsGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40" />
                 <RowDefinition Height="40" />
                 <RowDefinition Height="1*" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
@@ -26,13 +28,16 @@
             </Grid.ColumnDefinitions>
 
             <Label     Grid.Column="0" Grid.Row="0" Height="25" HorizontalAlignment="Right" Margin="5,5,0,0" Name="grammarPointLabel" Content="Grammar Point:" VerticalAlignment="Top" />
-            <TextBox   Grid.Column="1" Grid.Row="0" Height="25" HorizontalAlignment="Left" Margin="0,5,0,0" Name="grammarPointBox" VerticalAlignment="Top" Width="120" />
+            <TextBox   Grid.Column="1" Grid.Row="0" Height="25" HorizontalAlignment="Left" Margin="0,5,0,0" Name="grammarPointBox" VerticalAlignment="Top" Width="110" />
 
-            <Label     Grid.Column="0" Grid.Row="1" Height="25" HorizontalAlignment="Right" Margin="5,5,0,0" Name="grammarTypeLable" Content="Grammar Type:" VerticalAlignment="Top" />
-            <TextBox   Grid.Column="1" Grid.Row="1" Height="25" HorizontalAlignment="Left" Margin="0,5,0,0" Name="localWordBox" VerticalAlignment="Top" Width="120" />
+            <Label     Grid.Column="0" Grid.Row="1" Height="25" HorizontalAlignment="Right" Margin="5,5,0,0" Name="grammarTypeLabel" Content="Grammar Type:" VerticalAlignment="Top" />
+            <TextBox   Grid.Column="1" Grid.Row="1" Height="25" HorizontalAlignment="Left" Margin="0,5,0,0" Name="grammerTypeBox" VerticalAlignment="Top" Width="110" />
 
             <Label     Grid.Column="0" Grid.Row="2" Height="25"  HorizontalAlignment="Right" Margin="5,5,0,0" Name="descriptionLabel" Content="Description:" VerticalAlignment="Top" />
-            <TextBox   Grid.Column="1" Grid.Row="2" Height="100" HorizontalAlignment="Left"  Margin="0,5,0,0" Name="descriptionBox" VerticalAlignment="Top" Width="120" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" />
+            <TextBox   Grid.Column="1" Grid.Row="2" Height="100" HorizontalAlignment="Left"  Margin="0,5,0,0" Name="grammarDescriptionBox" VerticalAlignment="Top" Width="110" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" />
+            
+            <Button    Grid.Column="0" Grid.Row="3" Height="25" Width="60" Content="Add" Name="grammarAddButton" Click="grammarAddButton_Click" />
+            <Button    Grid.Column="1" Grid.Row="3" Height="25" Width="60" Content="Delete" Name="grammarDeleteButton" Click="grammarDeleteButton_Click" />
         </Grid>
     </Grid>
 </UserControl>

@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using System.Data.SQLite;
 
 namespace ConstructedLanguageOrganizerTool
 {
@@ -27,22 +28,38 @@ namespace ConstructedLanguageOrganizerTool
 
         private void wordsPage_Loaded(object sender, RoutedEventArgs e)
         {
-            
+
             DatabaseParser dbp = new DatabaseParser();
             wordListBox.Items.Clear();
 
-            string[] dbEntry = dbp.ReadDB("Lexicon", "conword", "", "");
+            string[] dbEntry = dbp.ReadDB("Lexicon", "conlangWord", "", "");
 
-            for (int i = 0; i<dbEntry.Length; i++)
+            for (int i = 0; i < dbEntry.Length; i++)
                 wordListBox.Items.Add(dbEntry[i]);
-
-
         }
 
         private void conwordAddButton_Click(object sender, RoutedEventArgs e)
         {
             DatabaseParser dbp = new DatabaseParser();
-            dbp.AddOrUpdateDB(conlangWordBox.Text,localWordBox.Text,pronunciationBox.Text,partOfSpeechBox.Text,genderBox.Text,declensionBox.Text);
+            int i = 0;
+            string[] pageInfo = new string[(wordDetailsGrid.Children.Count - 2)];
+            if (i < wordDetailsGrid.Children.Count)
+            {
+                foreach (object child in wordDetailsGrid.Children)
+                {
+                    if (child is Label)
+                        pageInfo[i] = (child as Label).Name;
+
+                    if (child is TextBox)
+                        pageInfo[i] = (child as TextBox).Text;
+
+                    i++;
+
+                }
+            }
+
+
+            dbp.AddOrUpdateDB(pageInfo, "Lexicon");
         }
 
         private void conwordDeleteButton_Click(object sender, RoutedEventArgs e)
@@ -56,16 +73,21 @@ namespace ConstructedLanguageOrganizerTool
             if (wordListBox.SelectedItem != null)
             {
                 DatabaseParser dbp = new DatabaseParser();
-                string[] dbEntry = dbp.ReadDB("Lexicon", "*", "", "");
+                string[] dbEntry = dbp.ReadDB("Lexicon", "*", "conlangWord", wordListBox.SelectedItem.ToString());
 
-                conlangWordBox.Text = dbEntry[0];
-                localWordBox.Text = dbEntry[1];
-                pronunciationBox.Text = dbEntry[2];
-                partOfSpeechBox.Text = dbEntry[3];
-                genderBox.Text = dbEntry[4];
-                declensionBox.Text = dbEntry[5];
+                int i = 0;
+                if (i <= wordDetailsGrid.Children.Count)
+                {
+                    foreach (object child in wordDetailsGrid.Children)
+                    {
 
-
+                        if (child is TextBox)
+                        {
+                            (child as TextBox).Text = dbEntry[i];
+                            i++;
+                        }
+                    }
+                }
             }
         }
     }

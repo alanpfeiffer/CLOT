@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data.SQLite;
 using System.IO;
 
 namespace ConstructedLanguageOrganizerTool
@@ -20,40 +21,9 @@ namespace ConstructedLanguageOrganizerTool
     /// </summary>
     public partial class MainWindow : Window
     {
-       
-
         public MainWindow()
         {
             InitializeComponent();
-             string fullpath = System.IO.Directory.GetCurrentDirectory();
-        fullpath = fullpath.Replace(@"\ConstructedLanguageOrganizerTool\bin\Debug", "");
-       // var dbFile = fullpath + fileBox.Text + ".db";
-            //var connString = string.Format(@"Data Source={0}; Pooling=false; FailIfMissing=false;", dbFile);
         }
-
-
-
-
-
-
-        //private void saveButton_Click(object sender, RoutedEventArgs e)
-        //{
-            
-        //    if (contentFrame.Content.GetType() == typeof(BasicsPage))
-        //    {
-        //        var basicsPage = contentFrame.Content as BasicsPage;
-        //        var bpl = basicsPage.conlangLettersValue.Text;
-        //        MessageBox.Show("You have saved to " + bpl);
-        //    }
-        //}
-
-        //private void loadButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //   // MessageBox.Show("You have loaded " + fileBox.Text + ".db");
-        //}
-
-   
-
-
     }
 }

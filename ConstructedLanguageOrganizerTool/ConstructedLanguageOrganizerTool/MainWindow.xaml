@@ -15,7 +15,7 @@
             </TabItem>
 
             <TabItem Header="Grammar" Name="grammarTab">
-                    <local:GrammarPage/>
+                <local:GrammarPage/>
             </TabItem>
         </TabControl>
     </Grid>

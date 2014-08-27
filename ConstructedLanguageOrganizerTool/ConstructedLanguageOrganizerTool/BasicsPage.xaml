@@ -3,7 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      mc:Ignorable="d" x:Name="basicsPage" d:DesignHeight="350" d:DesignWidth="320" Loaded="Page_Loaded">
+      mc:Ignorable="d" x:Name="basicsPage" d:DesignHeight="500" d:DesignWidth="500" 
+      Loaded="Page_Loaded">
 
     <Grid>
 
@@ -21,6 +22,8 @@
                 <RowDefinition Height="40" />
                 <RowDefinition Height="40" />
                 <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
@@ -28,23 +31,29 @@
             </Grid.ColumnDefinitions>
 
 
-            <TextBlock Grid.Row="0" Grid.Column="0" Height="25" HorizontalAlignment="Stretch" Margin="0,10,0,0" Name="conlangName" Text="Conlang Name:" VerticalAlignment="Center" />
+            <Label Grid.Row="0" Grid.Column="0" Height="25" HorizontalAlignment="Stretch" Margin="0,10,0,0" Name="conlangNameLabel" Content="Conlang Name:" VerticalAlignment="Center" />
             <TextBox   Grid.Row="0" Grid.Column="1" Height="25" HorizontalAlignment="Stretch"  Margin="0,5,5,0" Name="conlangNameValue" VerticalAlignment="Center"/>
 
-            <TextBlock Grid.Row="1" Grid.Column="0" Height="25" HorizontalAlignment="Stretch" Margin="0,10,0,0" Name="IPAName" Text="IPA for Conlang:" VerticalAlignment="Center"  />
-            <TextBox   Grid.Row="1" Grid.Column="1" Height="25" HorizontalAlignment="Stretch"  Margin="0,5,5,0"  Name="IPAValues" VerticalAlignment="Center" TextChanged="IPAValues_TextChanged" Foreground="#FF00FA00" />
+            <Label Grid.Row="1" Grid.Column="0" Height="25" HorizontalAlignment="Stretch" Margin="0,10,0,0" Name="IPAVaulesLabel" Content="IPA for Conlang:" VerticalAlignment="Center"  />
+            <TextBox   Grid.Row="1" Grid.Column="1" Height="25" HorizontalAlignment="Stretch"  Margin="0,5,5,0"  Name="IPAValues" VerticalAlignment="Center" Foreground="#FF00FA00" />
 
-            <TextBlock Grid.Row="2" Grid.Column="0" Height="25" HorizontalAlignment="Stretch" Margin="0,10,0,0" Name="conlangLetters" Text="Conlang Letters:" VerticalAlignment="Center"  />
+            <Label Grid.Row="2" Grid.Column="0" Height="25" HorizontalAlignment="Stretch" Margin="0,10,0,0" Name="conlangLettersLabel" Content="Conlang Letters:" VerticalAlignment="Center"  />
             <TextBox   Grid.Row="2" Grid.Column="1" Height="25" HorizontalAlignment="Stretch" Margin="0,5,5,0" Name="conlangLettersValue" VerticalAlignment="Center" Foreground="#FF0000FA" />
 
-            <TextBlock Grid.Row="3" Grid.Column="0" Height="25" HorizontalAlignment="Stretch" Margin="0,10,0,0" Name="basicWordForm" Text="Basic Word Form:" VerticalAlignment="Center"  />
+            <Label Grid.Row="3" Grid.Column="0" Height="25" HorizontalAlignment="Stretch" Margin="0,10,0,0" Name="basicWordFormLabel" Content="Basic Word Form:" VerticalAlignment="Center"  />
             <TextBox   Grid.Row="3" Grid.Column="1" Height="25" HorizontalAlignment="Stretch" Margin="0,5,5,0" Name="basicWordFormValue" VerticalAlignment="Center" Foreground="#FFAF0000" />
 
-            <TextBlock Grid.Row="4" Grid.Column="0" Height="25" HorizontalAlignment="Stretch" Margin="0,10,0,0" Name="gendersLabel" Text="Number of Genders:" VerticalAlignment="Center" />
+            <Label Grid.Row="4" Grid.Column="0" Height="25" HorizontalAlignment="Stretch" Margin="0,10,0,0" Name="gendersLabel" Content="Genders:" VerticalAlignment="Center" />
             <TextBox   Grid.Row="4" Grid.Column="1" Height="25" HorizontalAlignment="Stretch" Margin="0,5,5,0" Name="gendersValue" VerticalAlignment="Center" Foreground="#FFAF0000" />
 
-            <Button Grid.Row="5" Grid.Column="0" Height="25" Width="60" Content="Add" Name="conlangAddButton" Click="conlangAddButton_Click" />
-            <Button Grid.Row="5" Grid.Column="1" Height="25" Width="60" Content="Delete" Name="conlangDeleteButton" Click="conlangDeleteButton_Click" />
+            <Label Grid.Row="5" Grid.Column="0" Height="25" HorizontalAlignment="Stretch" Margin="0,10,0,0" Name="BSOLabel" Content="Basic Sentence Order:" VerticalAlignment="Center" />
+            <TextBox   Grid.Row="5" Grid.Column="1" Height="25" HorizontalAlignment="Stretch" Margin="0,5,5,0" Name="bsoValue" VerticalAlignment="Center" Foreground="#FFAF0000" />
+
+            <Label Grid.Row="6" Grid.Column="0" Height="25" HorizontalAlignment="Stretch" Margin="0,10,0,0" Name="delcensionsLabel" Content="Delcensions:" VerticalAlignment="Center" />
+            <TextBox   Grid.Row="6" Grid.Column="1" Height="25" HorizontalAlignment="Stretch" Margin="0,5,5,0" Name="delcensionsValue" VerticalAlignment="Center" Foreground="#FFAF0000" />
+            
+            <Button Grid.Row="9" Grid.Column="0" Height="25" Width="60" Content="Add" Name="conlangAddButton" Click="conlangAddButton_Click" />
+            <Button Grid.Row="9" Grid.Column="1" Height="25" Width="60" Content="Delete" Name="conlangDeleteButton" Click="conlangDeleteButton_Click" />
             
         </Grid>
     </Grid>
